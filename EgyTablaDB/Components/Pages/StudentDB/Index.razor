@@ -1,0 +1,40 @@
+﻿@page "/studentindex"
+@using EgyTablaDB.Data
+@using Microsoft.EntityFrameworkCore
+@inject MyDBContext DB
+
+<h3>Tanulók</h3>
+<hr/>
+
+<table class="table">
+    <thead>
+        
+            <tr>
+                <th>Oktatási azonosító</th>
+                <th>Név</th>
+                <th>Születési idő</th>
+                <th>Születési hely</th>
+                <th>Anyja neve</th>
+                <th>Város</th>
+            </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var data in DB.Students)
+        {
+            <tr>
+                <td>@data.StudentID</td>
+                <td>@data.GetFullname()</td>
+                <td>@data.BirthDay.ToShortDateString()</td>
+                <td>@data.BirthPlace</td>
+                <td>@data.GetFullname2()</td>
+                <td>@data.City</td>
+                
+            </tr>
+        }
+        </tbody>
+</table>
+
+@code {
+
+}
