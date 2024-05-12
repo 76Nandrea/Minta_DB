@@ -35,6 +35,18 @@
         </tbody>
 </table>
 
-@code {
-
-}
+<div class="row">
+    <div class="card-conatiner mt-2 col-5">
+    @foreach (var item in DB.Students)
+    {
+        <div class="card">
+            <div>id:@item.StudentID</div>
+            <div>Név:@item.GetFullname()</div>
+            <div>Szülidő:@item.BirthDay.ToShortDateString()</div>
+            <div>Szülhely:@item.BirthPlace</div>
+            <div>Anyja neve:@item.GetFullname2()</div>
+            <div>Város:@item.City</div>
+        </div>
+    }
+</div>
+</div>
