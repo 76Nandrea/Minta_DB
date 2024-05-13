@@ -1,10 +1,31 @@
 ﻿@page "/studentindex"
 @using EgyTablaDB.Data
 @using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
 @inject MyDBContext DB
+@rendermode InteractiveServer
 
 <h3>Tanulók</h3>
 <hr/>
+<div class="page-size-chooser">
+    Items per page:
+    <select @bind="@pagination.ItemsPerPage">
+        <option>1</option>
+        <option>10</option>
+        <option>20</option>
+        <option>50</option>
+    </select>
+</div>
+
+<QuickGrid Class="table" Items="DB.Students" Pagination="@pagination">
+    <PropertyColumn Title="OM azonosító" Property="om=>om.StudentID" Sortable="true" />
+    <PropertyColumn Title="Név" Property="name=>name.GetFullname()" />
+    <PropertyColumn Title="Születési " Property="@(bd=>bd.BirthDay)" Sortable="true" Format="yyyy.MM.dd"/>
+    <PropertyColumn Title="Születési hely" Property="bp=>bp.BirthPlace" Sortable="true" />
+    <PropertyColumn Title="Anyja Neve" Property="mn=>mn.GetFullname2()"/>
+    <PropertyColumn Title="Város" Property="ct=>ct.City" Sortable="true" />
+</QuickGrid>
+<Paginator State="@pagination" />
 
 <table class="table">
     <thead>
@@ -50,3 +71,8 @@
     }
 </div>
 </div>
+
+
+@code {
+    PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
+}

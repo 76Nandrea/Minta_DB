@@ -12,6 +12,9 @@ builder.Services.AddDbContext<MyDBContext>(options =>
 options.UseMySQL(builder.Configuration.GetConnectionString("MyConnectionString")
 ?? throw new InvalidOperationException("Nincs meg a ConnactionString")));
 
+
+builder.Services.AddQuickGridEntityFrameworkAdapter();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
