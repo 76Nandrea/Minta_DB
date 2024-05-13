@@ -5,10 +5,9 @@ namespace EgyTablaDB.Model
 {
     public class Student
     {
-        [MinLength(12)]
-        [MaxLength(12)]
+        [RegularExpression(@"^.{12,12}$")]
         [Required]
-        public Int64 StudentID { get; set; }
+        public long StudentID { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -30,7 +29,6 @@ namespace EgyTablaDB.Model
         public string? BirthPlace { get; set; }
 
         [Required]
-        [MaxLength(50)]
         public DateTime BirthDay { get; set; }
 
         [Required]

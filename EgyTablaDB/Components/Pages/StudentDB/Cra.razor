@@ -1,0 +1,76 @@
+﻿
+@page "/cra"
+@using EgyTablaDB.Model
+@inject EgyTablaDB.Data.MyDBContext DB
+@inject NavigationManager NavManager 
+<h3>Új tanuló felvétele az adatbázisba</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="StudentDB" OnValidSubmit="AddStudent" FormName="CreateStudent" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger"/>
+
+            <div class="mb-3">
+                <label for="om" class="form-label">OM azonosító</label>
+                <InputNumber id="om" @bind-Value="StudentDB.StudentID" class="form-control"/>
+                <ValidationMessage For="()=>StudentDB.StudentID" class="text-danger"/>
+            </div>
+            <div class="mb-3">
+                <label for="fname" class="form-label">Vezetéknév</label>
+                <InputText id="fname" @bind-Value="StudentDB.FName" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.FName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="lname" class="form-label">Keresztnév</label>
+                <InputText id="lname" @bind-Value="StudentDB.LName" class="form-control"/>
+                <ValidationMessage For="()=>StudentDB.LName" class="text-danger"/>
+            </div>
+            <div class="mb-3">
+                <label for="bd" class="form-label">Születési idő</label>
+                <InputDate id="bd" @bind-Value="StudentDB.BirthDay" class="form-control"/>
+                <ValidationMessage For="()=>StudentDB.BirthDay" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="bp" class="form-label">Születési hely</label>
+                <InputText id="bp" @bind-Value="StudentDB.BirthPlace" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.BirthPlace" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="ml" class="form-label">Anyja Keresztneve</label>
+                <InputText id="ml" @bind-Value="StudentDB.MotherLName" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.MotherLName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="mf" class="form-label">Anyja Vezetékneve</label>
+                <InputText id="mf" @bind-Value="StudentDB.MotherFName" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.MotherFName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="ct" class="form-label">Város</label>
+                <InputText id="ct" @bind-Value="StudentDB.City" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.City" class="text-danger" />
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-4">Mentés</button>
+            <a href="/studentindex" class="btn btn-success mb-4">Vissza</a>
+        </EditForm>
+</div></div>
+
+
+
+
+
+
+
+    @code {
+    [SupplyParameterFromForm]
+    public Student StudentDB { get; set; } = new();
+
+    private async Task AddStudent()
+    {
+        DB.Students.Add(StudentDB);
+        await DB.SaveChangesAsync();
+        NavManager.NavigateTo("/studentindex");
+    }
+}
