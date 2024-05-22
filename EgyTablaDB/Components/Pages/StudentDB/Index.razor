@@ -26,7 +26,11 @@
     <PropertyColumn Title="Születési " Property="@(bd=>bd.BirthDay)" Sortable="true" Format="yyyy.MM.dd"/>
     <PropertyColumn Title="Születési hely" Property="bp=>bp.BirthPlace" Sortable="true" />
     <PropertyColumn Title="Anyja Neve" Property="mn=>mn.GetFullname2()"/>
-    <PropertyColumn Title="Város" Property="ct=>ct.City" Sortable="true" />
+    <PropertyColumn Title="Város" Property="ct=>ct.City" Sortable="true"/>
+
+   <TemplateColumn Context="student" Title="Szerkesztés">
+        <a href="@($"deletestudent?Id={student.StudentID}")" class="btn btn-danger">delete</a>
+   </TemplateColumn>
 </QuickGrid>
 <Paginator State="@pagination" />
 
