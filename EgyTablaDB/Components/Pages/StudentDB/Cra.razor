@@ -16,6 +16,7 @@
                 <InputNumber id="om" @bind-Value="StudentDB.StudentID" class="form-control"/>
                 <ValidationMessage For="()=>StudentDB.StudentID" class="text-danger"/>
             </div>
+
             <div class="mb-3">
                 <label for="fname" class="form-label">Vezetéknév</label>
                 <InputText id="fname" @bind-Value="StudentDB.FName" class="form-control" />
@@ -37,14 +38,14 @@
                 <ValidationMessage For="()=>StudentDB.BirthPlace" class="text-danger" />
             </div>
             <div class="mb-3">
-                <label for="ml" class="form-label">Anyja Keresztneve</label>
-                <InputText id="ml" @bind-Value="StudentDB.MotherLName" class="form-control" />
-                <ValidationMessage For="()=>StudentDB.MotherLName" class="text-danger" />
-            </div>
-            <div class="mb-3">
                 <label for="mf" class="form-label">Anyja Vezetékneve</label>
                 <InputText id="mf" @bind-Value="StudentDB.MotherFName" class="form-control" />
                 <ValidationMessage For="()=>StudentDB.MotherFName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="ml" class="form-label">Anyja Keresztneve</label>
+                <InputText id="ml" @bind-Value="StudentDB.MotherLName" class="form-control" />
+                <ValidationMessage For="()=>StudentDB.MotherLName" class="text-danger" />
             </div>
             <div class="mb-3">
                 <label for="ct" class="form-label">Város</label>

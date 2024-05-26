@@ -10,6 +10,11 @@ namespace EgyTablaDB.Model
         public long StudentID { get; set; }
 
         [Required]
+        [RegularExpression(@"^\d{12}$", ErrorMessage = "12 számjegy lehet csak")]
+        [MaxLength(12)]
+        public string? StudentID2 { get; set; }
+
+        [Required]
         [MaxLength(50)]
         public string? FName { get; set; }
 

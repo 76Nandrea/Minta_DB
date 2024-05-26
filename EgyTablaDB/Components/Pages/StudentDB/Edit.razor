@@ -1,0 +1,56 @@
+﻿@page "/editstudent"
+@using Microsoft.EntityFrameworkCore
+@using EgyTablaDB.Model
+@inject EgyTablaDB.Data.MyDBContext DB
+@inject NavigationManager NavManager
+@rendermode InteractiveServer
+
+
+<h3>Edit</h3>
+<hr />
+
+@if(EditStudentDB is null){
+     <p>LOADING...</p>
+}
+else{
+<div class="row">
+    <div class="col-md-4">
+    <EditForm method="post" Model="EditStudentDB" OnValidSubmit="UpdateStudent" FormName="update" Enhance>
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+            <div class="mb-3">
+                <label for="om" class="form-label">OM azonosító</label>
+                <InputNumber id="om" @bind-Value="EditStudentDB.StudentID" class="form-control" />
+                <ValidationMessage For="()=>EditStudentDB.StudentID" class="text-danger" />
+            </div>
+
+    </EditForm>
+    </div>
+</div>
+}
+
+
+
+    @code {
+        [SupplyParameterFromQuery]
+    public long Id { get; set; }
+
+
+    [SupplyParameterFromForm]
+    public Student? EditStudentDB { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        EditStudentDB ??= await DB.Students.FirstOrDefaultAsync(e => e.StudentID == Id);
+        if(EditStudentDB is null)
+        {
+            NavManager.NavigateTo("/Error");
+        }
+    }
+
+        public async Task UpdateStudent()
+        {
+        
+        }
+}

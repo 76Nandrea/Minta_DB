@@ -8,6 +8,7 @@
 <h3>Tanulók</h3>
 <hr/>
 <a  href="/cra" class="btn btn-primary mb-4"> Új tanuló</a>
+<button type="button" class="btn btn-primary mb-3 mt-3" onclick="location.href = '@("/cra")'">Újtanuló gombbal</button>
 
 
 <div class="page-size-chooser">
@@ -22,6 +23,7 @@
 
 <QuickGrid Class="table" Items="DB.Students" Pagination="@pagination">
     <PropertyColumn Title="OM azonosító" Property="om=>om.StudentID" Sortable="true" />
+    <PropertyColumn Title="OM2 azonosító" Property="om=>om.StudentID2" Sortable="true" />
     <PropertyColumn Title="Név" Property="name=>name.GetFullname()" />
     <PropertyColumn Title="Születési " Property="@(bd=>bd.BirthDay)" Sortable="true" Format="yyyy.MM.dd"/>
     <PropertyColumn Title="Születési hely" Property="bp=>bp.BirthPlace" Sortable="true" />
@@ -29,6 +31,7 @@
     <PropertyColumn Title="Város" Property="ct=>ct.City" Sortable="true"/>
 
    <TemplateColumn Context="student" Title="Szerkesztés">
+        <a href="@($"editstudent?Id={student.StudentID}")" class="btn btn-info">edit</a>
         <a href="@($"deletestudent?Id={student.StudentID}")" class="btn btn-danger">delete</a>
    </TemplateColumn>
 </QuickGrid>
@@ -64,7 +67,7 @@
 </table>
 
 <div class="row">
-    <div class="card-conatiner mt-2 col-5">
+    <div class="card-container mt-2 col-5">
     @foreach (var item in DB.Students)
     {
         <div class="card">
