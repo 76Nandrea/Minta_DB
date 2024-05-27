@@ -11,10 +11,13 @@
 <button type="button" class="btn btn-primary mb-3 mt-3" onclick="location.href = '@("/cra")'">Újtanuló gombbal</button>
 
 
+<div class="row">
+    <div class="col-md-12">
+
 <div class="page-size-chooser">
     Items per page:
     <select @bind="@pagination.ItemsPerPage">
-        <option>1</option>
+        <option>5</option>
         <option>10</option>
         <option>20</option>
         <option>50</option>
@@ -32,11 +35,13 @@
 
    <TemplateColumn Context="student" Title="Szerkesztés">
         <a href="@($"editstudent?Id={student.StudentID}")" class="btn btn-info">edit</a>
+        <a href="@($"details?Id={student.StudentID}")" class="btn btn-success">details</a>
         <a href="@($"deletestudent?Id={student.StudentID}")" class="btn btn-danger">delete</a>
    </TemplateColumn>
 </QuickGrid>
 <Paginator State="@pagination" />
-
+ </div>
+</div>
 <table class="table">
     <thead>
         
@@ -84,5 +89,5 @@
 
 
 @code {
-    PaginationState pagination = new PaginationState { ItemsPerPage = 10 };
+    PaginationState pagination = new PaginationState { ItemsPerPage = 5 };
 }

@@ -58,7 +58,6 @@ namespace EgyTablaDB.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<string>("StudentID2")
-                        .IsRequired()
                         .HasMaxLength(12)
                         .HasColumnType("varchar(12)");
 

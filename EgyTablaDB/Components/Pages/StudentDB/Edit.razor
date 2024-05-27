@@ -23,6 +23,49 @@ else{
                 <InputNumber id="om" @bind-Value="EditStudentDB.StudentID" class="form-control" />
                 <ValidationMessage For="()=>EditStudentDB.StudentID" class="text-danger" />
             </div>
+            <div class="mb-3">
+                 <label for="om" class="form-label">OM2 azonosító</label>
+                 <InputText id="om" @bind-Value="EditStudentDB.StudentID2" class="form-control" />
+                 <ValidationMessage For="()=>EditStudentDB.StudentID2" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                 <label for="om" class="form-label">Vezetéknév</label>
+                 <InputText id="om" @bind-Value="EditStudentDB.FName" class="form-control" />
+                    <ValidationMessage For="()=>EditStudentDB.FName" class="text-danger" />
+             </div>
+             <div class="mb-3">
+                  <label for="om" class="form-label">Keresztnév</label>
+                  <InputText id="om" @bind-Value="EditStudentDB.LName" class="form-control" />
+                  <ValidationMessage For="()=>EditStudentDB.LName" class="text-danger" />
+             </div>
+             <div class="mb-3">
+                  <label for="om" class="form-label">Születési idő</label>
+                  <InputDate id="om" @bind-Value="EditStudentDB.BirthDay" class="form-control" />
+                  <ValidationMessage For="()=>EditStudentDB.BirthDay" class="text-danger" />
+             </div>
+                <div class="mb-3">
+                    <label for="om" class="form-label">Születési hely</label>
+                    <InputText id="om" @bind-Value="EditStudentDB.BirthPlace" class="form-control" />
+                    <ValidationMessage For="()=>EditStudentDB.BirthPlace" class="text-danger" />
+             </div>
+             <div class="mb-3">
+                    <label for="om" class="form-label">Anyja Vezetékneve</label>
+                    <InputText id="om" @bind-Value="EditStudentDB.MotherFName" class="form-control" />
+                    <ValidationMessage For="()=>EditStudentDB.MotherFName" class="text-danger" />
+              </div>
+              <div class="mb-3">
+                    <label for="om" class="form-label">Anyja Keresztneve</label>
+                    <InputText id="om" @bind-Value="EditStudentDB.MotherLName" class="form-control" />
+                    <ValidationMessage For="()=>EditStudentDB.MotherLName" class="text-danger" />
+               </div>
+               <div class="mb-3">
+                    <label for="om" class="form-label">Város</label>
+                    <InputText id="om" @bind-Value="EditStudentDB.City" class="form-control" />
+                    <ValidationMessage For="()=>EditStudentDB.City" class="text-danger" />
+               </div>
+
+                <button type="submit" class="btn btn-primary mb-4">Save</button>
+                <a href="/studentindex" class="btn btn-success mb-4">Back to Student List</a>
 
     </EditForm>
     </div>
@@ -31,8 +74,8 @@ else{
 
 
 
-    @code {
-        [SupplyParameterFromQuery]
+@code {
+    [SupplyParameterFromQuery]
     public long Id { get; set; }
 
 
@@ -49,8 +92,31 @@ else{
         }
     }
 
-        public async Task UpdateStudent()
+    public async Task UpdateStudent()
+    {
+        DB.Attach(EditStudentDB).State = EntityState.Modified;
+        try
         {
-        
+            await DB.SaveChangesAsync();
+
         }
+        catch(DbUpdateConcurrencyException)
+        {
+            if(!EditStudentDBExc(EditStudentDB!.StudentID))
+            {
+                NavManager.NavigateTo("/Error");
+            }
+            else
+            {
+                throw;
+            }
+        }
+        NavManager.NavigateTo("/studentindex");
+    }
+       
+
+    bool EditStudentDBExc(long id)  //ellenőrzi, hogy van-e  még ilyen a db-ben
+    {
+        return DB.Students.Any(e => e.StudentID == id);
+    }
 }

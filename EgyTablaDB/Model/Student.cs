@@ -9,7 +9,7 @@ namespace EgyTablaDB.Model
         [Required]
         public long StudentID { get; set; }
 
-        [Required]
+        
         [RegularExpression(@"^\d{12}$", ErrorMessage = "12 számjegy lehet csak")]
         [MaxLength(12)]
         public string? StudentID2 { get; set; }
@@ -40,6 +40,8 @@ namespace EgyTablaDB.Model
         [MaxLength(50)]
         public string? City { get; set; }
 
+       
+
         public string GetFullname()
         {
             return $"{FName} {LName}";
@@ -49,5 +51,6 @@ namespace EgyTablaDB.Model
         {
             return $"{MotherFName} {MotherLName}";
         }
+
     }
 }
