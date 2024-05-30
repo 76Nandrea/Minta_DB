@@ -64,12 +64,21 @@
 
 
 
-    @code {
+@code {
     [SupplyParameterFromForm]
     public Student StudentDB { get; set; } = new();
 
+
+    //ez  a szebb megoldás - inicializálás közben az alapértéket beállítom (mintha konstruktor lenne)
+    protected override void OnInitialized()
+    {
+        StudentDB.ShowData = true;
+    }
+
+
     private async Task AddStudent()
     {
+        // StudentDB.ShowData = true;   // ez az egyik megoldás
         DB.Students.Add(StudentDB);
         await DB.SaveChangesAsync();
         NavManager.NavigateTo("/studentindex");

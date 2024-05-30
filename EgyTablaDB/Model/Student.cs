@@ -1,4 +1,5 @@
-﻿using Org.BouncyCastle.Asn1.X509;
+﻿using EgyTablaDB.Validation;
+using Org.BouncyCastle.Asn1.X509;
 using System.ComponentModel.DataAnnotations;
 
 namespace EgyTablaDB.Model
@@ -34,13 +35,15 @@ namespace EgyTablaDB.Model
         public string? BirthPlace { get; set; }
 
         [Required]
+        [StudentBDValidation]
         public DateTime BirthDay { get; set; }
 
         [Required]
         [MaxLength(50)]
         public string? City { get; set; }
 
-       
+
+        public bool ShowData { get; set; } = true;
 
         public string GetFullname()
         {

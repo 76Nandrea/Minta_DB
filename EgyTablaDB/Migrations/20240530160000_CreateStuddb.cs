@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace EgyTablaDB.Migrations
 {
     /// <inheritdoc />
-    public partial class StudentDbCreate : Migration
+    public partial class CreateStuddb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,15 +19,17 @@ namespace EgyTablaDB.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    StudentID = table.Column<long>(type: "bigint", maxLength: 12, nullable: false)
+                    StudentID = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    StudentID2 = table.Column<string>(type: "varchar(12)", maxLength: 12, nullable: true),
                     FName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     LName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     MotherFName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     MotherLName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     BirthPlace = table.Column<string>(type: "longtext", nullable: false),
-                    BirthDay = table.Column<DateTime>(type: "datetime(6)", maxLength: 50, nullable: false),
-                    City = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                    BirthDay = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    City = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    ShowData = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {

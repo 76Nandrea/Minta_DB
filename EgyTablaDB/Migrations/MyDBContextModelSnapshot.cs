@@ -57,6 +57,9 @@ namespace EgyTablaDB.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<bool>("ShowData")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("StudentID2")
                         .HasMaxLength(12)
                         .HasColumnType("varchar(12)");

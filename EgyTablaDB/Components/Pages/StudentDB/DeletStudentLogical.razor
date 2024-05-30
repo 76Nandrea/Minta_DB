@@ -1,0 +1,99 @@
+﻿@page "/deletestudentlogical"
+@using EgyTablaDB.Model
+@using Microsoft.EntityFrameworkCore
+@inject EgyTablaDB.Data.MyDBContext DB
+@inject NavigationManager  NavManager
+
+
+<h3>DeleteStudent Logical</h3>
+<hr/>
+
+<div>
+    @if(student is null)
+    {
+        <p>Loading......</p>
+    }
+    else
+    {
+        <dl class="row">
+            <dt class="col-sm-2">OM azonosító</dt>
+            <dd class="col-sm-10">@student.StudentID</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Név</dt>
+            <dd class="col-sm-10">@student.GetFullname()</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Születésnap</dt>
+            <dd class="col-sm-10">@student.BirthDay</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Születési hely</dt>
+            <dd class="col-sm-10">@student.BirthPlace</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Anyja neve</dt>
+            <dd class="col-sm-10">@student.GetFullname2()</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Város</dt>
+            <dd class="col-sm-10">@student.City</dd>
+        </dl>
+        <EditForm method="post" Model="student"  OnValidSubmit="DeleteUserLogical" FormName="delete" Enhance>
+            <button class="btn btn-danger" type="submit" disabled="@(student is null)">Delete</button>
+            <a href="/studentindex " class="btn btn-primary">Back to Student List</a>
+        </EditForm>
+    }
+</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
+@code {
+    Student? student;
+
+    //vagy 
+    // public Student student = new ();
+
+    [SupplyParameterFromQuery]
+    public long ID { get; set; }
+
+
+    protected override async Task OnInitializedAsync() 
+    {
+        student = await DB.Students.FirstOrDefaultAsync(x =>x.StudentID == ID);
+        if(student is null)
+        {
+            NavManager.NavigateTo("/Error");
+        }
+    }
+
+    //törlés függyvény
+    public  async Task DeleteUserLogical()
+    {
+        DB.Attach(student!).State = EntityState.Modified;
+        try
+        {
+            student!.ShowData = false;
+            DB.Students.Update(student!);
+            await DB.SaveChangesAsync();
+            NavManager.NavigateTo("/studentindex");
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if(!DeleteLogicalExp(student!.StudentID))
+            {
+                NavManager.NavigateTo("/error");
+            }
+            else
+            {
+                throw;
+            }
+
+        }
+
+
+    }
+    bool DeleteLogicalExp(long e)
+    {
+        return DB.Students.Any(e => e.StudentID == ID);
+    }
+}

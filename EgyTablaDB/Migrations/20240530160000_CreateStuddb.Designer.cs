@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EgyTablaDB.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    [Migration("20240526203918_NEWOM2")]
-    partial class NEWOM2
+    [Migration("20240530160000_CreateStuddb")]
+    partial class CreateStuddb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,8 +60,10 @@ namespace EgyTablaDB.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<bool>("ShowData")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("StudentID2")
-                        .IsRequired()
                         .HasMaxLength(12)
                         .HasColumnType("varchar(12)");
 

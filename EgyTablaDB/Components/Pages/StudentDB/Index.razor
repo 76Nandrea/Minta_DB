@@ -24,7 +24,7 @@
     </select>
 </div>
 
-<QuickGrid Class="table" Items="DB.Students" Pagination="@pagination">
+<QuickGrid Class="table" Items="DB.Students.Where(x=>x.ShowData)" Pagination="@pagination">
     <PropertyColumn Title="OM azonosító" Property="om=>om.StudentID" Sortable="true" />
     <PropertyColumn Title="OM2 azonosító" Property="om=>om.StudentID2" Sortable="true" />
     <PropertyColumn Title="Név" Property="name=>name.GetFullname()" />
@@ -37,6 +37,7 @@
         <a href="@($"editstudent?Id={student.StudentID}")" class="btn btn-info">edit</a>
         <a href="@($"details?Id={student.StudentID}")" class="btn btn-success">details</a>
         <a href="@($"deletestudent?Id={student.StudentID}")" class="btn btn-danger">delete</a>
+        <a href="@($"deletestudentlogical?Id={student.StudentID}")" class="btn btn-danger">delete Logical</a>
    </TemplateColumn>
 </QuickGrid>
 <Paginator State="@pagination" />
@@ -52,6 +53,7 @@
                 <th>Születési hely</th>
                 <th>Anyja neve</th>
                 <th>Város</th>
+                <th>Logikai megjelenítés</th>
             </tr>
     </thead>
 
@@ -65,6 +67,7 @@
                 <td>@data.BirthPlace</td>
                 <td>@data.GetFullname2()</td>
                 <td>@data.City</td>
+                <td>@data.ShowData</td>
                 
             </tr>
         }
